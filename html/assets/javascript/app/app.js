@@ -30,5 +30,40 @@ dexterApp.config(["$httpProvider", "$routeProvider", function($httpProvider, $ro
         when('/', {
             templateUrl: 'partials/main.html',
             controller: 'HomeCtrl'
+        }).
+        when('/dashboard', {
+            templateUrl: 'partials/dashboard.html',
+            controller: 'DashBoardCtrl'
+        }).
+        when('/dashboard/company', {
+            templateUrl: 'partials/dashboard/company.html',
+            controller: 'CompanyCtrl'
+        }).
+        when('/dashboard/user-management', {
+            templateUrl: 'partials/dashboard/userManagement.html',
+            controller: 'UserManagementCtrl'
+        }).
+        when('/statistics', {
+            templateUrl: 'partials/statistics.html',
+            controller: 'StatisticsCtrl'
+        }).
+        when('/forum/:page', {
+            templateUrl: 'partials/forum.html',
+            controller: 'ForumCtrl'
+        }).
+        when('/forum/thread/:thread/page/:page', {
+            templateUrl: 'partials/forum/thread.html',
+            controller: 'ThreadCtrl'
+        }).
+        when('/qa', {
+            templateUrl: 'partials/qa.html',
+            controller: 'QaCtrl'
+        }).
+        when('/dashboard/editprofile', {
+            templateUrl: 'partials/dashboard/edit.html',
+            controller: 'EditCtrl'
+        }).
+        otherwise({
+            redirectTo: '/dashboard'
         });
 }]);

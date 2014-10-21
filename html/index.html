@@ -30,7 +30,25 @@
     <!-- End AngularJS
          AngularApp -->
     <script src="assets/javascript/app/app.js"></script>
+    <script src="assets/javascript/app/controllers/MainCtrl.js"></script>
     <script src="assets/javascript/app/controllers/HomeCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/DashBoardCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/LoginCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/RegisterCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/StatisticsCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/ForumCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/forum/NewThreadCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/forum/ThreadCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/forum/NewPostCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/forum/UpdatePostCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/forum/ThreadSettingsCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/QaCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/EditCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/CompanyCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/UserManagementCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/company/NewPosterCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/company/UpdatePosterCtrl.js"></script>
+    <script src="assets/javascript/app/controllers/dashboard/company/NewSurveyCtrl.js"></script>
     <!-- End AngularApp -->
     <link rel="stylesheet" type="text/css" href="assets/styles/ng-tags-input.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/styles/ng-tags-input.bootstrap.min.css">
@@ -41,26 +59,69 @@
     <!-- End Scripts -->
 </head>
 <body id="wrapper" ng-controller="MainCtrl">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                </br>
-                <h1>
-                    Dexter's Laboratory
-                </h1>
-
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque ultricies enim, et sagittis leo imperdiet et. Sed et facilisis eros, blandit imperdiet lacus. Phasellus porta leo eget dui suscipit, eu molestie purus iaculis. Cras purus nunc, consectetur ac justo eget, volutpat consectetur sem. Aliquam ultrices magna nec justo tempor, eu hendrerit massa scelerisque. In pretium fringilla nunc, ac ultricies dolor. Suspendisse dui eros, molestie in nulla quis, accumsan sagittis sapien. Maecenas rhoncus dolor mattis, porta ipsum vitae, malesuada nulla. Aenean et convallis ipsum. Morbi in libero erat. Morbi bibendum dolor metus, et blandit lorem lacinia ac. Praesent quis fringilla ipsum. Nunc et enim at neque malesuada molestie et in orci. Suspendisse placerat porttitor sem et mollis. Nulla non tellus et massa tincidunt commodo. Nulla facilisis feugiat viverra.
-                </p>
-                <p>
-                    Maecenas libero turpis, mollis sit amet scelerisque eu, auctor a arcu. Phasellus in justo neque. Donec imperdiet velit ac lectus commodo luctus. Mauris ut tortor lectus. Phasellus sodales nisl at malesuada condimentum. Integer tempus massa id risus iaculis tincidunt. Nulla facilisi. Etiam sit amet dolor ipsum. Proin dapibus sapien nunc, eu faucibus risus pretium sit amet. Nullam vel nulla sit amet arcu maximus maximus a ut felis. Proin commodo facilisis dolor, nec commodo diam laoreet facilisis. Nunc facilisis sem dapibus sodales egestas. Sed convallis leo eget blandit blandit. Fusce blandit condimentum enim, sit amet lobortis enim finibus non.
-                </p>
-                <p>
-                    Curabitur eget luctus sem. In vestibulum, magna et elementum semper, lectus neque semper nulla, ut dictum dui velit luctus sem. Cras vel nibh maximus, imperdiet erat in, tincidunt odio. Aenean aliquam scelerisque eros, et varius ipsum tincidunt at. Cras malesuada eleifend arcu quis mattis. Vivamus sed metus vestibulum, vulputate sem sed, sollicitudin arcu. Nullam bibendum a eros vel posuere. Donec bibendum blandit leo viverra faucibus. Ut vitae placerat lorem, id placerat nisl. Fusce sagittis arcu a faucibus ornare. Ut at mauris et enim lobortis faucibus. Vivamus auctor pharetra quam id eleifend.
-                </p>
-
-            </div>
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+    <div class="sidebar-nav-welcome" ng-hide="sidebarToggled">
+        <div ng-show="loggedUser.success == 'false'">
+            <button class="btn btn-success btn-block" data-toggle="modal" ng-click="login()">
+                Login
+            </button>
+            or
+            <button class="btn btn-primary btn-block" data-toggle="modal" ng-click="register()">
+                Register
+            </button>
+        </div>
+        <div ng-show="loggedUser.success == 'true'">
+            <img ng-if="loggedUser.user.avatar != '-'" class="img-responsive img-circle" ng-src="{{loggedUser.user.avatar}}">
+            <img ng-if="loggedUser.user.avatar == '-'" class="img-responsive img-circle" ng-src="http://demo.localhost/assets/images/avatars/default_user.png">
+            Welcome back, {{loggedUser.user.username}}!
+            <button class="btn btn-success btn-block" ng-click="logout()">
+                Logout
+            </button>
         </div>
     </div>
+    </br>
+    <ul class="sidebar-nav" ng-hide="sidebarToggled">
+        <li>
+            <a href="#">
+                <span class="glyphicon glyphicon-home"></span>
+                Home
+            </a>
+        </li>
+        <br>
+        <li data-ng-repeat="menu in menus">
+            <a href="{{menu.path}}">
+                <span class="glyphicon glyphicon-{{menu.glyphicon}}"></span>
+                {{menu.title}}
+            </a>
+        </li>
+        <li style="bottom: 25px; position: absolute; width: 100%">
+            <a href="#" ng-click="sidebarToggle($event)">
+                <span class="glyphicon glyphicon-th-list"></span>
+                Toggle sidebar
+            </a>
+        </li>
+    </ul>
+    <ul class="sidebar-nav-toggled" ng-show="sidebarToggled">
+        <li>
+            <a href="#">
+                <h1><i class="glyphicon glyphicon-home"></i></h1>
+            </a>
+        </li>
+        <br>
+        <li data-ng-repeat="menu in menus">
+            <a href="{{menu.path}}">
+                <h1><i class="glyphicon glyphicon-{{menu.glyphicon}}"></i></h1>
+            </a>
+        </li>
+        <li style="bottom: 25px; position: absolute; width: 100%">
+            <a href="#" ng-click="sidebarToggle($event)">
+                <h1><i class="glyphicon glyphicon-th-list"></i></h1>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- /#sidebar-wrapper -->
+<div ng-view></div>
 </body>
 </html>
