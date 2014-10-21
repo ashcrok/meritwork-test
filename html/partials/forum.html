@@ -1,0 +1,61 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+
+        <h2>
+            Dexter's Laboratory <b>Forum</b>
+        </h2>
+
+        <br>
+
+        <button class="btn btn-primary" data-toggle="modal" ng-click="newThread()">
+            New Thread
+        </button>
+
+        <br>
+        <br>
+
+        <!-- Thread list -->
+        <table class="table table-hover">
+            <thead>
+                <td></td>
+                <td><p style="font-size: 15px"><b>ID</b></p></td>
+                <td><p style="font-size: 15px"><b>Subject</b></p></td>
+                <td><p style="font-size: 15px" align="center"><b>Author</b></p></td>
+                <td><p style="font-size: 15px" align="center"><b>Replies</b></p></td>
+                <td><p style="font-size: 15px" align="center"><b>Views</b></p></td>
+                <td><p style="font-size: 15px" align="center"><b>Created</b></p></td>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="thread in threads">
+                <td><img ng-src={{thread.icon}} width="25px" height="25px"/></td>
+                <td><p style="font-family: Verdana; font-size: 13px">{{thread.id}}</p></td>
+                <td><p style="font-family: Verdana; font-size: 13px"><a href="/#/forum/thread/{{thread.id}}/page/1" style="color: black">{{thread.title}}</a> <span ng-if="thread.locked == 1" class="label label-warning">Locked</span></p></td>
+                <td><p style="font-family: Verdana; font-size: 13px" align="center">{{thread.author}}</p></td>
+                <td><p style="font-family: Verdana; font-size: 13px" align="center">{{thread.replies}}</p></td>
+                <td><p style="font-family: Verdana; font-size: 13px" align="center">{{thread.views}}</p></td>
+                <td><p style="font-family: Verdana; font-size: 13px" align="center">{{thread.created_at}}</p></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <button class="btn btn-primary pull-left" data-toggle="modal" ng-click="newThread()">
+            New Thread
+        </button>
+
+        <!-- Pagination -->
+        <ul class="pagination pull-right no-top-margin">
+            <li ng-show="currentPage==1" class="disabled"><span>&laquo;</span></li>
+            <li ng-show="currentPage!=1"><a ng-href="#/forum/{{prevPage}}">&laquo;</a></li>
+            <li data-ng-repeat="page in pages" ng-class="{active: page.index==currentPage}">
+                <a ng-href="#/forum/{{page.index}}">{{page.index}}</a>
+            </li>
+            <li ng-show="currentPage==nrPages" class="disabled"><span>&raquo;</span></li>
+            <li ng-show="currentPage!=nrPages"><a ng-href="#/forum/{{nextPage}}">&raquo;</a></li>
+        </ul>
+
+    </div>
+</div>
+<!-- /#page-content-wrapper -->

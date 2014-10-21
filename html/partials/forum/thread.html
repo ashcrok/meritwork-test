@@ -1,0 +1,89 @@
+<!-- Page Content -->
+<div id="page-content-wrapper" xmlns="http://www.w3.org/1999/html">
+    <div class="container-fluid">
+
+        <!-- Posts -->
+        <ul class="list-unstyled">
+            <li>
+                <span class="media">
+                    <span style="display: inline-block">
+                        <a class="pull-left">
+                            <img class="media-object" style="padding-right: 15px; max-height: 60px; max-height: 60px" src="{{thread.icon}}">
+                        </a>
+                        <div class="media-body">
+                            <h3 class="media-heading">{{thread.title}}</h3>
+                            <span ng-if="thread.locked == 1" class="label label-warning">Locked</span>
+                            Started by {{thread.author}}, {{thread.created_at}}
+                        </div>
+                    </span>
+                    <span style="float: right;">
+                        <button ng-if="thread.author == loggedUser.user.username" class="btn btn-primary" align="center" data-toggle="modal" ng-click="updateThread(thread.id)">
+                            Settings
+                        </button>
+                    </span>
+                </span>
+            </li>
+            </br>
+            <li data-ng-repeat="post in posts">
+                <div class="panel panel-primary">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <span class="dropdown" style="cursor: pointer;">
+                            <a class="dropdown-toggle">
+                                <b>{{post.author}}</b>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a style="cursor: pointer;" ng-show="updatePostPerm(post)" data-toggle="modal" ng-click="updatePost(post.id)">Edit post</a>
+                                </li>
+                                <li>
+                                    <a style="cursor: pointer" ng-show="deletePostPerm(post)" ng-click="deletePost(post.id)">Delete post</a>
+                                </li>
+                                <li>
+                                    <a href="#">View user profile</a>
+                                </li>
+                            </ul>
+                        </span>
+                        <span style="float: right;">
+                            Post created at: {{post.created_at}}
+                        </span>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="table">
+                        <tr>
+                            <td width="100px" align="center" style="border-right: solid 1px #428bca;">
+                                <p style="font-size: 13px; font-family: Calibri">{{post.user_type}}</p>
+                                <img ng-src="{{post.user_avatar}}" style="padding-bottom: 10px; max-width: 60px; max-height: 60px"></a>
+                                <p style="font-size: 13px; font-family: Calibri">Posts: {{post.user_posts}}</p>
+                                <p style="font-size: 13px; font-family: Calibri">Joined: {{post.user_created_at}}</p>
+                            </td>
+                            <td style="word-wrap: break-word; max-width: 600px;" ng-bind-html="post.text">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
+
+
+        <!-- Add New Post Button -->
+        <button class="btn btn-primary pull-left" ng-if="thread.locked == 0" data-toggle="modal" ng-click="newPost()">
+            Add Post
+        </button>
+
+
+        <!-- Pagination -->
+            <ul class="pagination pull-right no-top-margin" ng-if="nrPages > 1">
+                <li ng-show="currentPage==1" class="disabled"><span>&laquo;</span></li>
+                <li ng-show="currentPage!=1"><a ng-href="#/forum/thread/{{currentThread}}/page/{{prevPage}}">&laquo;</a></li>
+                <li data-ng-repeat="page in pages" ng-class="{active: page.index==currentPage}">
+                    <a ng-href="#/forum/thread/{{currentThread}}/page/{{page.index}}">{{page.index}}</a>
+                </li>
+                <li ng-show="currentPage==nrPages" class="disabled"><span>&raquo;</span></li>
+                <li ng-show="currentPage!=nrPages"><a ng-href="#/forum/thread/{{currentThread}}/page/{{nextPage}}">&raquo;</a></li>
+            </ul>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->

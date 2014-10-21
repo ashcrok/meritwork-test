@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title">New Poster</h3>
+</div>
+
+<div class="modal-body">
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="inputTitle" placeholder="URL" ng-model="input.url">
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-12" ng-if="isPicture()">
+                <div class="container-fluid" align="center">
+                    <img ng-src="{{input.url}}" style="max-width: 400px; max-height: 400px" />
+                </div>
+                <br>
+            </div>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="inputLink" placeholder="Link" ng-model="input.link">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click='ok()'>Create</button>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" ng-show="error == 'true'">{{errorMessage}}</div>
+    </form>
+</div>
