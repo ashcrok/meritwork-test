@@ -20,22 +20,32 @@
     <script src="lib/angularjs/angular-route.js"></script>
     <!-- End AngularJS Scripts -->
 
+    <!-- App Configurations -->
     <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <!-- App Configurations -->
+
+    <!-- Function Scripts -->
+    <script src="js/functions/OrdinalNumber.js"></script>
+    <!-- End Function Scripts -->
+
+    <!-- App Controller Scripts -->
     <script src="js/controllers/MainCtrl.js"></script>
     <script src="js/controllers/HomeCtrl.js"></script>
+    <!-- End App Controller Scripts -->
 </head>
 <body ng-controller="MainCtrl">
     <div class="container-fluid">
         <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
+            <div class="container-fluid col-sm-12">
+                <div class="navbar-header col-sm-2">
                     <a class="navbar-brand" href="#">
                         <span class="glyphicon glyphicon-th-list"></span>
                     </a>
                 </div>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left col-sm-10" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" ng-model="searchText">
+                        <input type="text" class="form-control input-normal" placeholder="Search" ng-model="searchText">
                     </div>
                 </form>
             </div>
@@ -50,10 +60,10 @@
             <tr ng-repeat="user in users | filter:searchText">
                 <td><img ng-src="{{user.avatar}}" style="max-height: 40px; max-width: 40px"/></td>
                 <td>
-                    <span class="label label-primary">{{user.service}}</span>
-                    <h4 style="padding-top:0px">from {{user.name}}</h4>
+                    <span class="label label-primary">{{user.email}}</span>
+                    <h4 style="padding-top:0px">from {{user.username}}</h4>
                 </td>
-                <td><span class="badge">{{user.degree}}</span></td>
+                <td><span class="badge">{{user.type}}</span></td>
             </tr>
         </table>
     </div>

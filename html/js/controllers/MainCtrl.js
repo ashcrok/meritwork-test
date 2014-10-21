@@ -1,29 +1,21 @@
 /**
  * Created by ashcrok on 10/21/2014.
  */
-myApp.controller('MainCtrl', function ($scope, $rootScope, $window, $location) {
+myApp.controller('MainCtrl', function ($scope, $http, $window, $location) {
 
-    var user1 = {
-        'name'      : 'vasile',
-        'avatar'    : 'http://png-4.findicons.com/files/icons/2443/bunch_of_cool_bluish_icons/512/user.png',
-        'service'   : 'programmer',
-        'degree'    : '2nd'
-    }
+    $http.get(
+        apiUrl + 'users/list/1.json'
+        ).success(function(data) {
+            $scope.users = data;
+            for (user in $scope.users) {
+                $scope.users[user]['type'] = parseInt($scope.users[user]['type']) + 1;
+                $scope.users[user]['type'] = getGetOrdinal($scope.users[user]['type']);
+            }
+        }).error(function(data, status) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
 
-    var user2 = {
-        'name'      : 'andrei',
-        'avatar'    : 'http://png-4.findicons.com/files/icons/2443/bunch_of_cool_bluish_icons/512/user.png',
-        'service'   : 'programmer',
-        'degree'    : '1st'
-    }
 
-    var user3 = {
-        'name'      : 'radu',
-        'avatar'    : 'http://png-4.findicons.com/files/icons/2443/bunch_of_cool_bluish_icons/512/user.png',
-        'service'   : 'programmer',
-        'degree'    : '4th'
-    }
-
-    $scope.users = [user1, user2, user3];
 
 });
