@@ -35,72 +35,7 @@
     <script src="js/controllers/HomeCtrl.js"></script>
     <!-- End App Controller Scripts -->
 </head>
-<body id="wrapper" ng-controller="MainCtrl">
-
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <div class="sidebar-nav-welcome" ng-hide="sidebarToggled">
-            <div ng-show="loggedUser.success == 'false'">
-                <button class="btn btn-success btn-block" data-toggle="modal" ng-click="login()">
-                    Login
-                </button>
-                or
-                <button class="btn btn-primary btn-block" data-toggle="modal" ng-click="register()">
-                    Register
-                </button>
-            </div>
-            <div ng-show="loggedUser.success == 'true'">
-                <img ng-if="loggedUser.user.avatar != '-'" class="img-responsive img-circle" ng-src="{{loggedUser.user.avatar}}">
-                <img ng-if="loggedUser.user.avatar == '-'" class="img-responsive img-circle" ng-src="http://demo.localhost/assets/images/avatars/default_user.png">
-                Welcome back, {{loggedUser.user.username}}!
-                <button class="btn btn-success btn-block" ng-click="logout()">
-                    Logout
-                </button>
-            </div>
-        </div>
-        </br>
-        <ul class="sidebar-nav" ng-hide="sidebarToggled">
-            <li>
-                <a href="#">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Home
-                </a>
-            </li>
-            <br>
-            <li data-ng-repeat="menu in menus">
-                <a href="{{menu.path}}">
-                    <span class="glyphicon glyphicon-{{menu.glyphicon}}"></span>
-                    {{menu.title}}
-                </a>
-            </li>
-            <li style="bottom: 25px; position: absolute; width: 100%">
-                <a href="#" ng-click="sidebarToggle($event)">
-                    <span class="glyphicon glyphicon-th-list"></span>
-                    Toggle sidebar
-                </a>
-            </li>
-        </ul>
-        <ul class="sidebar-nav-toggled" ng-show="sidebarToggled">
-            <li>
-                <a href="#">
-                    <h1><i class="glyphicon glyphicon-home"></i></h1>
-                </a>
-            </li>
-            <br>
-            <li data-ng-repeat="menu in menus">
-                <a href="{{menu.path}}">
-                    <h1><i class="glyphicon glyphicon-{{menu.glyphicon}}"></i></h1>
-                </a>
-            </li>
-            <li style="bottom: 25px; position: absolute; width: 100%">
-                <a href="#" ng-click="sidebarToggle($event)">
-                    <h1><i class="glyphicon glyphicon-th-list"></i></h1>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
+<body style="padding: 0px; margin: 0px;" ng-controller="MainCtrl">
     <div ng-view></div>
 </body>
 </html>
