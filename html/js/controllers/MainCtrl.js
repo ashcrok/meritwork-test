@@ -3,19 +3,50 @@
  */
 myApp.controller('MainCtrl', function ($scope, $http, $window, $location) {
 
-    $http.get(
-        apiUrl + 'users/list/1.json'
-        ).success(function(data) {
-            $scope.users = data;
-            for (user in $scope.users) {
-                $scope.users[user]['type'] = parseInt($scope.users[user]['type']) + 1;
-                $scope.users[user]['type'] = getGetOrdinal($scope.users[user]['type']);
-            }
-        }).error(function(data, status) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-        });
+    $scope.sidebarToggled       = false;
 
+    $scope.sidebarToggle = function($event) {
+        $event.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $scope.sidebarToggled = !$scope.sidebarToggled;
+    };
+
+
+    var user1 = {
+        'avatar'    : 'https://en.opensuse.org/images/0/0b/Icon-user.png',
+        'service'   : 'Web Developer',
+        'username'  : 'Mihai Pricop',
+        'type'      : '1'
+    };
+
+    var user2 = {
+        'avatar'    : 'https://en.opensuse.org/images/0/0b/Icon-user.png',
+        'service'   : 'Java Developer',
+        'username'  : 'Mihai Pricop',
+        'type'      : '1'
+    };
+
+    var user3 = {
+        'avatar'    : 'https://en.opensuse.org/images/0/0b/Icon-user.png',
+        'service'   : 'Tester',
+        'username'  : 'Mihai Pricop',
+        'type'      : '1'
+    };
+
+    var user4 = {
+        'avatar'    : 'https://en.opensuse.org/images/0/0b/Icon-user.png',
+        'service'   : 'Software Engineer',
+        'username'  : 'Alexandru Alex',
+        'type'      : '2'
+    };
+
+    var users = [user1,user2,user3,user4];
+
+    for (user in users) {
+        users[user]['type'] = getGetOrdinal(parseInt(users[user]['type']));
+    }
+
+    $scope.users = users;
 
 
 });
